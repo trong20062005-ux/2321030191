@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Game Cờ Tướng - Kienzxje</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #171717, #3b1d0b);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.game {
+    text-align: center;
+    width: 100%;
+    max-width: 650px;
+}
+
+h1 {
+    color: #ffd166;
+    margin-bottom: 10px;
+    font-size: 36px;
+}
+
+#status {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.board {
+    width: min(90vw, 540px);
+    height: min(100vw, 600px);
+    margin: auto;
+    position: relative;
+
+    background:
+        linear-gradient(to right,
+            transparent 11.11%,
+            #4b260e 11.11%,
+            #4b260e 11.5%,
+            transparent 11.5%,
+            transparent 22.22%,
+            #4b260e 22.22%,
+            #4b260e 22.61%,
+            transparent 22.61%,
+            transparent 33.33%,
+            #4b260e 33.33%,
+            #4b260e 33.72%,
+            transparent 33.72%,
+            transparent 44.44%,
+            #4b260e 44.44%,
+            #4b260e 44.83%,
+            transparent 44.83%,
+            transparent 55.55%,
+            #4b260e 55.55%,
+            #4b260e 55.94%,
+            transparent 55.94%,
+            transparent 66.66%,
+            #4b260e 66.66%,
+            #4b260e 67.05%,
+            transparent 67.05%,
+            transparent 77.77%,
+            #4b260e 77.77%,
+            #4b260e 78.16%,
+            transparent 78.16%,
+            transparent 88.88%,
+            #4b260e 88.88%,
+            #4b260e 89.27%,
+            transparent 89.27%
+        ),
+        linear-gradient(to bottom,
+            transparent 10%,
+            #4b260e 10%,
+            #4b260e 10.35%,
+            transparent 10.35%,
+            transparent 20%,
+            #4b260e 20%,
+            #4b260e 20.35%,
+            transparent 20.35%,
+            transparent 30%,
+            #4b260e 30%,
+            #4b260e 30.35%,
+            transparent 30.35%,
+            transparent 40%,
+            #4b260e 40%,
+            #4b260e 40.35%,
+            transparent 40.35%,
+            transparent 50%,
+            #4b260e 50%,
+            #4b260e 50.35%,
+            transparent 50.35%,
+            transparent 60%,
+            #4b260e 60%,
+            #4b260e 60.35%,
+            transparent 60.35%,
+            transparent 70%,
+            #4b260e 70%,
+            #4b260e 70.35%,
+            transparent 70.35%,
+            transparent 80%,
+            #4b260e 80%,
+            #4b260e 80.35%,
+            transparent 80.35%,
+            transparent 90%,
+            #4b260e 90%,
+            #4b260e 90.35%,
+            transparent 90.35%
+        );
+
+    border: 5px solid #7a4218;
+    box-shadow: 0 10px 30px rgba(0,0,0,.5);
+}
+
+/* Sông */
+
+.river {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 45%;
+    height: 10%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    background: #c98743;
+    color: #5b2e0d;
+
+    font-size: clamp(16px, 4vw, 28px);
+    font-weight: bold;
+
+    z-index: 0;
+}
+
+/* Cung */
+
+.palace {
+    position: absolute;
+    width: 22.22%;
+    height: 20%;
+    left: 38.89%;
+    border: 3px solid #8a4b20;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.palace.top {
+    top: 0;
+}
+
+.palace.bottom {
+    bottom: 0;
+}
+
+.diagonal1,
+.diagonal2 {
+    position: absolute;
+    width: 28%;
+    height: 3px;
+    background: #8a4b20;
+    left: 36%;
+    transform-origin: center;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.diagonal1 {
+    top: 10%;
+    transform: rotate(24deg);
+}
+
+.diagonal2 {
+    top: 10%;
+    transform: rotate(-24deg);
+}
+
+.bottom-diagonal1,
+.bottom-diagonal2 {
+    position: absolute;
+    width: 28%;
+    height: 3px;
+    background: #8a4b20;
+    left: 36%;
+    transform-origin: center;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.bottom-diagonal1 {
+    bottom: 10%;
+    transform: rotate(24deg);
+}
+
+.bottom-diagonal2 {
+    bottom: 10%;
+    transform: rotate(-24deg);
+}
+
+/* Các điểm trên bàn */
+
+.cell {
+    position: absolute;
+
+    width: 11.11%;
+    height: 10%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    z-index: 3;
+}
+
+/* Quân cờ */
+
+.piece {
+    width: 80%;
+    aspect-ratio: 1;
+
+    max-width: 54px;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: "Times New Roman", serif;
+    font-size: clamp(25px, 5vw, 43px);
+    font-weight: bold;
+
+    background: radial-gradient(circle, #f5d9a6, #c89452);
+
+    border: 3px solid #6b3c17;
+
+    box-shadow:
+        0 4px 6px rgba(0,0,0,.45),
+        inset 0 0 5px rgba(255,255,255,.5);
+
+    user-select: none;
+
+    transition: .15s;
+}
+
+.red {
+    color: #c40000;
+}
+
+.black {
+    color: #111;
+}
+
+.cell.selected .piece {
+    transform: scale(1.12);
+    box-shadow:
+        0 0 0 4px #00e5ff,
+        0 5px 10px rgba(0,0,0,.5);
+}
+
+.cell.move::after {
+    content: "";
+    width: 20%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #00a86b;
+    position: absolute;
+}
+
+.cell.capture::after {
+    content: "";
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    border: 4px solid #ff4444;
+    border-radius: 50%;
+}
+
+button {
+    margin-top: 20px;
+
+    padding: 12px 25px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #e63946;
+    color: white;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background: #ff4d5a;
+    transform: scale(1.05);
+}
+
+#message {
+    color: #ffd166;
+    margin-top: 12px;
+    min-height: 25px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="game">
+
+    <h1>♜ CỜ TƯỚNG ♜</h1>
+
+    <div id="status">
+        Lượt: 🔴 Đỏ
+    </div>
+
+    <div class="board" id="board">
+
+        <div class="river">
+            <span>楚河</span>
+            <span>漢界</span>
+        </div>
+
+        <div class="palace top"></div>
+        <div class="palace bottom"></div>
+
+        <div class="diagonal1"></div>
+        <div class="diagonal2"></div>
+
+        <div class="bottom-diagonal1"></div>
+        <div class="bottom-diagonal2"></div>
+
+    </div>
+
+    <div id="message"></div>
+
+    <button onclick="restartGame()">
+        🔄 Chơi lại
+    </button>
+
+</div>
+
+<script>
+
+const board = document.getElementById("board");
+const statusText = document.getElementById("status");
+const message = document.getElementById("message");
+
+let turn = "red";
+let selected = null;
+let gameOver = false;
+
+/*
+    Ký hiệu quân:
+    
+    K = Tướng
+    A = Sĩ
+    E = Tượng
+    H = Mã
+    R = Xe
+    C = Pháo
+    P = Tốt
+*/
+
+const initialBoard = [
+
+    ["r","h","e","a","k","a","e","h","r"],
+
+    [null,null,null,null,null,null,null,null,null],
+
+    [null,"c",null,null,null,null,null,"c",null],
+
+    ["p",null,"p",null,"p",null,"p",null,"p"],
+
+    [null,null,null,null,null,null,null,null,null],
+
+    [null,null,null,null,null,null,null,null,null],
+
+    ["P",null,"P",null,"P",null,"P",null,"P"],
+
+    [null,"C",null,null,null,null,null,"C",null],
+
+    [null,null,null,null,null,null,null,null,null],
+
+    ["R","H","E","A","K","A","E","H","R"]
+
+];
+
+let boardState;
+
+function restartGame() {
+
+    boardState = initialBoard.map(row => [...row]);
+
+    turn = "red";
+    selected = null;
+    gameOver = false;
+
+    message.textContent = "";
+
+    drawBoard();
+
+    updateStatus();
+}
+
+
+function drawBoard() {
+
+    document.querySelectorAll(".cell").forEach(e => e.remove());
+
+    for(let row = 0; row < 10; row++) {
+
+        for(let col = 0; col < 9; col++) {
+
+            const cell = document.createElement("div");
+
+            cell.className = "cell";
+
+            cell.style.left = (col * 11.11) + "%";
+            cell.style.top = (row * 10) + "%";
+
+            cell.dataset.row = row;
+            cell.dataset.col = col;
+
+            const piece = boardState[row][col];
+
+            if(piece) {
+
+                const div = document.createElement("div");
+
+                div.className = "piece";
+
+                if(piece === piece.toUpperCase()) {
+                    div.classList.add("red");
+                } else {
+                    div.classList.add("black");
+                }
+
+                div.textContent = getPieceName(piece);
+
+                cell.appendChild(div);
+            }
+
+            cell.addEventListener("click", handleClick);
+
+            board.appendChild(cell);
+        }
+    }
+
+    showSelectedMoves();
+}
+
+
+function getPieceName(piece) {
+
+    const red = {
+        K:"帥",
+        A:"仕",
+        E:"相",
+        H:"傌",
+        R:"俥",
+        C:"炮",
+        P:"兵"
+    };
+
+    const black = {
+        k:"將",
+        a:"士",
+        e:"象",
+        h:"馬",
+        r:"車",
+        c:"砲",
+        p:"卒"
+    };
+
+    return red[piece] || black[piece];
+}
+
+
+function isRed(piece) {
+
+    return piece && piece === piece.toUpperCase();
+}
+
+
+function sameColor(a,b) {
+
+    return a && b && isRed(a) === isRed(b);
+}
+
+
+function handleClick(e) {
+
+    if(gameOver) return;
+
+    const cell = e.currentTarget;
+
+    const row = Number(cell.dataset.row);
+    const col = Number(cell.dataset.col);
+
+    const piece = boardState[row][col];
+
+    if(selected) {
+
+        if(isLegalMove(
+            selected.row,
+            selected.col,
+            row,
+            col,
+            turn
+        )) {
+
+            makeMove(
+                selected.row,
+                selected.col,
+                row,
+                col
+            );
+
+            selected = null;
+
+            clearSelection();
+
+            if(checkGameEnd()) {
+                return;
+            }
+
+            turn = turn === "red" ? "black" : "red";
+
+            updateStatus();
+
+            showSelectedMoves();
+
+        } else {
+
+            if(piece && isRed(piece) === (turn === "red")) {
+
+                selected = {
+                    row,
+                    col
+                };
+
+                clearSelection();
+
+                cell.classList.add("selected");
+
+                showSelectedMoves();
+
+            } else {
+
+                selected = null;
+
+                clearSelection();
+
+            }
+        }
+
+    } else {
+
+        if(piece && isRed(piece) === (turn === "red")) {
+
+            selected = {
+                row,
+                col
+            };
+
+            cell.classList.add("selected");
+
+            showSelectedMoves();
+        }
+    }
+}
+
+
+function clearSelection() {
+
+    document.querySelectorAll(".cell").forEach(cell => {
+
+        cell.classList.remove(
+            "selected",
+            "move",
+            "capture"
+        );
+
+    });
+}
+
+
+function showSelectedMoves() {
+
+    if(!selected) return;
+
+    const cells = document.querySelectorAll(".cell");
+
+    cells.forEach(cell => {
+
+        const r = Number(cell.dataset.row);
+        const c = Number(cell.dataset.col);
+
+        if(isLegalMove(
+            selected.row,
+            selected.col,
+            r,
+            c,
+            turn
+        )) {
+
+            if(boardState[r][c]) {
+                cell.classList.add("capture");
+            } else {
+                cell.classList.add("move");
+            }
+        }
+    });
+}
+
+
+function makeMove(fr,fc,tr,tc) {
+
+    boardState[tr][tc] = boardState[fr][fc];
+
+    boardState[fr][fc] = null;
+
+    drawBoard();
+}
+
+
+function isLegalMove(fr,fc,tr,tc,color) {
+
+    if(fr === tr && fc === tc)
+        return false;
+
+    const piece = boardState[fr][fc];
+
+    if(!piece)
+        return false;
+
+    if(isRed(piece) !== (color === "red"))
+        return false;
+
+    const target = boardState[tr][tc];
+
+    if(target && sameColor(piece,target))
+        return false;
+
+    if(!basicMove(piece,fr,fc,tr,tc))
+        return false;
+
+    /*
+       Sau khi đi thử, kiểm tra
+       tướng của mình có bị chiếu không
+    */
+
+    const oldTarget = boardState[tr][tc];
+
+    boardState[tr][tc] = piece;
+    boardState[fr][fc] = null;
+
+    const inCheck = isInCheck(color);
+
+    boardState[fr][fc] = piece;
+    boardState[tr][tc] = oldTarget;
+
+    return !inCheck;
+}
+
+
+function basicMove(piece,fr,fc,tr,tc) {
+
+    const dr = tr-fr;
+    const dc = tc-fc;
+
+    const absR = Math.abs(dr);
+    const absC = Math.abs(dc);
+
+    const type = piece.toLowerCase();
+
+    /*
+        Tướng
+    */
+
+    if(type === "k") {
+
+        if(absR + absC !== 1)
+            return false;
+
+        if(fc < 3 || fc > 5)
+            return false;
+
+        if(isRed(piece)) {
+
+            if(tr < 7)
+                return false;
+
+        } else {
+
+            if(tr > 2)
+                return false;
+        }
+
+        return true;
+    }
+
+
+    /*
+        Sĩ
+    */
+
+    if(type === "a") {
+
+        if(absR !== 1 || absC !== 1)
+            return false;
+
+        if(fc < 3 || fc > 5)
+            return false;
+
+        if(isRed(piece))
+            return tr >= 7;
+        else
+            return tr <= 2;
+    }
+
+
+    /*
+        Tượng
+    */
+
+    if(type === "e") {
+
+        if(absR !== 2 || absC !== 2)
+            return false;
+
+        if(isRed(piece) && tr < 5)
+            return false;
+
+        if(!isRed(piece) && tr > 4)
+            return false;
+
+        const midR = fr + dr/2;
+        const midC = fc + dc/2;
+
+        if(boardState[midR][midC])
+            return false;
+
+        return true;
+    }
+
+
+    /*
+        Mã
+    */
+
+    if(type === "h") {
+
+        if(!(
+            (absR === 2 && absC === 1) ||
+            (absR === 1 && absC === 2)
+        ))
+            return false;
+
+        /*
+            Kiểm tra chân Mã
+        */
+
+        let legR = fr;
+        let legC = fc;
+
+        if(absR === 2)
+            legR += dr > 0 ? 1 : -1;
+        else
+            legC += dc > 0 ? 1 : -1;
+
+        if(boardState[legR][legC])
+            return false;
+
+        return true;
+    }
+
+
+    /*
+        Xe
+    */
+
+    if(type === "r") {
+
+        if(dr !== 0 && dc !== 0)
+            return false;
+
+        return countBetween(fr,fc,tr,tc) === 0;
+    }
+
+
+    /*
+        Pháo
+    */
+
+    if(type === "c") {
+
+        if(dr !== 0 && dc !== 0)
+            return false;
+
+        const between = countBetween(
+            fr,fc,tr,tc
+        );
+
+        if(!boardState[tr][tc])
+            return between === 0;
+
+        return between === 1;
+    }
+
+
+    /*
+        Tốt
+    */
+
+    if(type === "p") {
+
+        const direction = isRed(piece) ? -1 : 1;
+
+        /*
+            Đi thẳng
+        */
+
+        if(dr === direction && dc === 0)
+            return true;
+
+        /*
+            Qua sông mới được đi ngang
+        */
+
+        const crossedRiver = isRed(piece)
+            ? fr <= 4
+            : fr >= 5;
+
+        if(crossedRiver &&
+           dr === 0 &&
+           absC === 1) {
+
+            return true;
+        }
+
+        return false;
+    }
+
+    return false;
+}
+
+
+function countBetween(fr,fc,tr,tc) {
+
+    let count = 0;
+
+    if(fr === tr) {
+
+        const start = Math.min(fc,tc) + 1;
+        const end = Math.max(fc,tc);
+
+        for(let c = start; c < end; c++) {
+
+            if(boardState[fr][c])
+                count++;
+        }
+
+    } else if(fc === tc) {
+
+        const start = Math.min(fr,tr) + 1;
+        const end = Math.max(fr,tr);
+
+        for(let r = start; r < end; r++) {
+
+            if(boardState[r][fc])
+                count++;
+        }
+    }
+
+    return count;
+}
+
+
+function findKing(color) {
+
+    const king = color === "red" ? "K" : "k";
+
+    for(let r=0;r<10;r++) {
+
+        for(let c=0;c<9;c++) {
+
+            if(boardState[r][c] === king) {
+
+                return {
+                    row:r,
+                    col:c
+                };
+            }
+        }
+    }
+
+    return null;
+}
+
+
+function isInCheck(color) {
+
+    const king = findKing(color);
+
+    if(!king)
+        return true;
+
+    const enemy = color === "red"
+        ? "black"
+        : "red";
+
+    for(let r=0;r<10;r++) {
+
+        for(let c=0;c<9;c++) {
+
+            const piece = boardState[r][c];
+
+            if(!piece)
+                continue;
+
+            if(isRed(piece) !== (enemy === "red"))
+                continue;
+
+            if(basicMove(
+                piece,
+                r,
+                c,
+                king.row,
+                king.col
+            )) {
+
+                return true;
+            }
+        }
+    }
+
+    /*
+        Quy tắc hai tướng nhìn nhau
+    */
+
+    const enemyKing = findKing(enemy);
+
+    if(enemyKing &&
+       enemyKing.col === king.col) {
+
+        if(countBetween(
+            king.row,
+            king.col,
+            enemyKing.row,
+            enemyKing.col
+        ) === 0) {
+
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+function hasAnyMove(color) {
+
+    for(let fr=0;fr<10;fr++) {
+
+        for(let fc=0;fc<9;fc++) {
+
+            const piece = boardState[fr][fc];
+
+            if(!piece)
+                continue;
+
+            if(isRed(piece) !== (color === "red"))
+                continue;
+
+            for(let tr=0;tr<10;tr++) {
+
+                for(let tc=0;tc<9;tc++) {
+
+                    if(isLegalMove(
+                        fr,fc,tr,tc,color
+                    )) {
+
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+
+function checkGameEnd() {
+
+    const nextTurn =
+        turn === "red"
+        ? "black"
+        : "red";
+
+    const check = isInCheck(nextTurn);
+
+    const canMove = hasAnyMove(nextTurn);
+
+    if(!canMove) {
+
+        gameOver = true;
+
+        if(check) {
+
+            const winner =
+                turn === "red"
+                ? "🔴 ĐỎ"
+                : "⚫ ĐEN";
+
+            statusText.textContent =
+                "🏆 " + winner + " THẮNG!";
+
+            message.textContent =
+                "Chiếu bí! 🎉";
+
+        } else {
+
+            statusText.textContent =
+                "🤝 HÒA CỜ";
+
+            message.textContent =
+                "Không còn nước đi hợp lệ.";
+        }
+
+        return true;
+    }
+
+    if(check) {
+
+        message.textContent =
+            "⚠️ " +
+            (nextTurn === "red" ? "Đỏ" : "Đen") +
+            " đang bị chiếu!";
+
+    } else {
+
+        message.textContent = "";
+    }
+
+    return false;
+}
+
+
+function updateStatus() {
+
+    if(gameOver)
+        return;
+
+    if(turn === "red") {
+
+        statusText.textContent =
+            "Lượt: 🔴 ĐỎ";
+
+    } else {
+
+        statusText.textContent =
+            "Lượt: ⚫ ĐEN";
+    }
+}
+
+
+restartGame();
+
+</script>
+
+</body>
+</html>
