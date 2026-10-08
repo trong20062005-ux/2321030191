@@ -210,9 +210,71 @@
             document.writeln("Điểm của bạn không hợp lệ");
         }
 
+
+        // object: var name = { }
+        var thongTinSinhVien = {
+            ten: "Do Duy Trong",
+            tuoi: 21,
+            gioiTinh: true, // true: nam, false: nữ
+            diaChi: {
+                tinh: "Ha Noi",
+                phuong: "Xuan Loc",
+                duong: "Xuan Dinh"
+            }
+        }
+
+        var thongTinWebPhim = {
+            ten: "conan",
+            theLoai: "hoat hinh",
+            namSanXuat: "1994",
+            daoDien: "Aoyama Gosho",
+            thoiLuong: "24 phút/tập",
+            nhanvat: "Shinichi Kudo / Conan Edogawa",
+        }
+
+        document.writeln("<br>");
+        document.writeln(thongTinWebPhim.nhanvat[2]);
+
+        // switch case
+        var d = new Date();
+        var theDay = d.getDay();
+        switch (theDay) {
+            case 5:
+                document.writeln("Finnally Friday");
+                break;
+            case 6:
+                document.writeln("Super Saturday");
+                break;
+            case 0:
+                document.writeln("Sleepy Sunday");
+                break;        
+            default:
+                document.writeln("Looking forward to the Weekend");
+        }
+
+        for (var index = 1; index <= 2; index++) {
+            document.writeln("hello! <br>");
+        }
+
+
+        var danhSachSinhVien = ["Thuy", "Trang", "Duy", "Trong","Thao"];
+        document.writeln("<br> Xin Chào" + danhSachSinhVien[0])
+        for (var i = 0; i < danhSachSinhVien.length; i++) {
+            document.writeln("<br>" + i + "<br>");
+            document.writeln(dánhSachSinhVien[1]);
+        }
+
+
+        var danhSachSinhVien = ["Thuy", "Tuan", "Duy", "Trong","Thao"];
+        document.writeln("<br> Xin Chào" + danhSachSinhVien[0])
+        for (var i = 1; i < danhSachSinhVien.length; i++) {
+            document.writeln("<br>" + i + "<br>");
+            document.writeln(danhSachSinhVien[i]);
+        }
+
      </script>
 
      <!-- external JS -->
-      <!-- <script src="script.js"></script> -->
+     <!-- <script src="script.js"></script> -->
 </body>
 </html>
