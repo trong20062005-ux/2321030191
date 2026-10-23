@@ -261,7 +261,7 @@
         document.writeln("<br> Xin Chào" + danhSachSinhVien[0])
         for (var i = 0; i < danhSachSinhVien.length; i++) {
             document.writeln("<br>" + i + "<br>");
-            document.writeln(dánhSachSinhVien[1]);
+            document.writeln(danhSachSinhVien[1]);
         }
 
 
@@ -271,6 +271,24 @@
             document.writeln("<br>" + i + "<br>");
             document.writeln(danhSachSinhVien[i]);
         }
+
+        //popup boxes
+        alert("Xin chào!");
+
+        // confirm
+        var r = confirm("press a button!");
+        if (r == true) {
+            document.writeln("you pressed OK!");
+        } else {
+            document.writeln("you pressed Cancel!");
+        }
+
+        //prompt
+        r = prompt("Please enter your name:", "Duy Trong");
+        document.write(r);
+
+
+        
 
      </script>
 
