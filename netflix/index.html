@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thực hành tạo trang Netflix</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!--Đầu trang-->
+    <header>
+        <!--Danh mục-->
+        <nav class="danh-muc">
+            <ul class="danh-sach-muc">
+                <img class="logo" src="../ảnh/logo.svg" alt="">
+                <li class="muc"><a class="lien-ket-muc dang-chon" href="#">Trang chủ</a></li>
+                <li class="muc"><a class="lien-ket-muc" href="#">Nhân vật</a></li>
+                <li class="muc"><a class="lien-ket-muc" href="#">Series</a></li>
+                <li class="muc"><a class="lien-ket-muc" href="#">Phim</a></li>
+                <li class="muc"><a class="lien-ket-muc" href="#">Mới và phổ biến</a></li>
+                <li class="muc"><a class="lien-ket-muc" href="#">Netflix của tôi</a></li>
+                <li class="muc"><a class="lien-ket-muc" href="#">Duyệt tìm theo ngôn ngữ</a></li>
+
+            </ul>
+
+        </nav>
+        <div class="chuc-nang";>
+            <img class="avatar" src="../ảnh/avata.jpg" alt="">
+        </div>
+
+
+    </header>
+
+    <!--Nội dung chính trang-->
+    <main>
+        <div class="banner";>
+            
+            <iframe class="video" src="https://www.youtube.com/embed/pHmb2NwmTI4?si=ST0K488v5WedK-gn"></iframe>
+            <h1>Safety sharief labrodor</h1>
+
+        </div>
+        <!--Thể loại-->
+        <div class="the-loai">
+            <div class="ten-the-loai">
+                <h3> Top phim hay</h3>
+            </div>
+
+            <div class="danh-sach-phim">
+
+                <div onclick="chonPhim(1)" class="phim">
+                    <img src="../ảnh/phim1.png" alt="">
+                </div>
+                <div onclick="chonPhim(2)" class="phim">
+                    <img src="../ảnh/phim2.png" alt="">
+                </div>
+                <div onclick="chonPhim(3)" class="phim">
+                    <img src="../ảnh/phim3.png" alt="">
+                </div>
+                <div onclick="chonPhim(4)" class="phim">
+                    <img src="../ảnh/phim4.png" alt="">
+                </div>
+                <div onclick="chonPhim(5)" class="phim">
+                    <img src="../ảnh/phim5.png" alt="">
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+        <div class="the-loai">
+            <div class="ten-the-loai">
+                <h3> Có thể bạn sẽ mê các tác phẩm này</h3>
+            </div>
+
+            <div class="danh-sach-phim">
+                <div class="phim">
+                    <img src="../ảnh/phim6.png" alt="">
+                </div>
+                <div class="phim">
+                    <img src="../ảnh/phim6.png" alt="">
+                </div>
+                <div class="phim">
+                    <img src="../ảnh/phim7.png" alt="">
+                </div>
+                <div class="phim">
+                    <img src="../ảnh/phim8.png" alt="">
+                </div>
+                <div class="phim">
+                    <img src="../ảnh/phim8.png" alt="">
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="the-loai">
+            <div class="ten-the-loai">
+                <h3> Động vật</h3>
+            </div>
+
+            <div class="danh-sach-phim">
+                <div class="phim">
+                    <img src="../ảnh/phim9.png" alt="">
+                </div>
+                <div class="phim">
+                    <img src="../ảnh/phim10.png" alt="">
+                </div>
+                <div class="phim">
+                    <img src="../ảnh/phim11.png" alt="">
+                </div>
+                <div class="phim">
+                    <img src="../ảnh/phim12.png" alt="">
+                </div>
+                <div class="phim">
+                    <img src="../ảnh/phim13.png" alt="">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="the-loai">
+            <div class="ten-the-loai">
+                <h3> Phổ biến</h3>
+            </div>
+
+            <div class="danh-sach-phim">
+                <div class="phim">
+                    <img src="../ảnh/phim14.png" alt="">
+                </div>
+                <div class="phim">
+                    <img src="../ảnh/phim11.png" alt="">
+                </div>
+                <div class="phim">
+                    <img src="../ảnh/phim10.png" alt="">
+                </div>
+                <div class="phim">
+                    <img src="../ảnh/phim13.png" alt="">
+                </div>
+                <div class="phim">
+                    <img src="../ảnh/phim3.png" alt="">
+                </div>
+            </div>
+        </div>
+        <br>
+    </main>
+
+
+    <!--chân trang-->
+    <footer>
+        <div class="the-loai">
+            <div class="ten-the-loai">
+                <h3> Nhân vật</h3>
+            </div>
+
+            <div class="danh-sach-phim-chan">
+                <div class="phim-chan">
+                    <img src="../ảnh/nv1.jpg" alt="">
+                </div>
+                <div class="phim-chan">
+                    <img src="../ảnh/nv2.jpg" alt="">
+                </div>
+                <div class="phim-chan">
+                    <img src="../ảnh/nv3.jpg" alt="">
+                </div>
+                <div class="phim-chan">
+                    <img src="../ảnh/nv4.jpg" alt="">
+                </div>
+                <div class="phim-chan">
+                    <img src="../ảnh/nv5.jpg" alt="">
+                </div>
+                <div class="phim-chan">
+                    <img src="../ảnh/nv6.jpg" alt="">
+                </div>
+                <div class="phim-chan">
+                    <img src="../ảnh/nv7.jpg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="lien-ket-chan-trang">
+            <a href="#">Mô tả âm thanh</a>
+            <a href="#">Trợ giúp</a>
+            <a href="#">Thẻ quà tặng</a>
+
+            <a href="#">Điều khoản sử dụng</a>
+            <a href="#">Quyền riêng tư</a>
+            <a href="#">Tùy chọn cookie</a>
+
+            <a href="#">Thông tin doanh nghiệp</a>
+            <a href="#">Liên hệ với chúng tôi</a>
+            <a href="#">Trung tâm truyền thông</a>
+
+        </div>
+        
+       
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
